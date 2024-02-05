@@ -1,0 +1,31 @@
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Random random = new Random();
+
+        int num = random.nextInt(0,500);
+        //System.out.println(num);
+        int number;
+        Scanner scanner = new Scanner(System.in);
+        number = scanner.nextInt();
+        int count = 0;
+
+            while(number!=num) {
+                if (number < num) {
+                    System.out.println("the number is too Small , guess another one ");
+                    count++;
+                    number = scanner.nextInt();
+                } else if (number > num) {
+                    System.out.println("the number is too large , guess another one ");
+                    count++;
+                    number = scanner.nextInt();
+                }
+            }
+
+        System.out.println("You won by gusseing "+(++count)+" times");
+
+    }
+}
