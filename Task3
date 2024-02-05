@@ -1,0 +1,144 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Contact {
+    private String name;
+    private String phoneNumber;
+    private String emailAddress;
+
+    public Contact(String name, String phoneNumber, String emailAddress) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Phone: " + phoneNumber + ", Email: " + emailAddress;
+    }
+}
+
+class ContactManager {
+    private ArrayList<Contact> contacts;
+
+    public ContactManager() {
+        this.contacts = new ArrayList<>();
+    }
+
+    public void addContact(Contact contact) {
+        contacts.add(contact);
+    }
+
+    public void viewContacts() {
+        for (Contact contact : contacts) {
+            System.out.println(contact);
+        }
+    }
+
+    public Contact findContact(String name) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    public void editContact(String name, String newPhoneNumber, String newEmailAddress) {
+        Contact contact = findContact(name);
+        if (contact != null) {
+            contact = new Contact(name, newPhoneNumber, newEmailAddress);
+            System.out.println("Contact edited successfully.");
+        } else {
+            System.out.println("Contact not found.");
+        }
+    }
+
+    public void deleteContact(String name) {
+        Contact contact = findContact(name);
+        if (contact != null) {
+            contacts.remove(contact);
+            System.out.println("Contact deleted successfully.");
+        } else {
+            System.out.println("Contact not found.");
+        }
+    }
+
+}
+
+public class ContactApp {
+    public static void main(String[] args) {
+        ContactManager contactManager = new ContactManager();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. Add Contact");
+            System.out.println("2. View Contacts");
+            System.out.println("3. Edit Contact");
+            System.out.println("4. Delete Contact");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter phone number: ");
+                    String phoneNumber = scanner.nextLine();
+                    System.out.print("Enter email address: ");
+                    String emailAddress = scanner.nextLine();
+
+                    Contact newContact = new Contact(name, phoneNumber, emailAddress);
+                    contactManager.addContact(newContact);
+                    System.out.println("Contact added successfully.");
+                    break;
+
+                case 2:
+                    System.out.println("\nContacts:");
+                    contactManager.viewContacts();
+                    break;
+
+                case 3:
+                    System.out.print("Enter name of the contact to edit: ");
+                    String editName = scanner.nextLine();
+                    System.out.print("Enter new phone number: ");
+                    String newPhoneNumber = scanner.nextLine();
+                    System.out.print("Enter new email address: ");
+                    String newEmailAddress = scanner.nextLine();
+
+                    contactManager.editContact(editName, newPhoneNumber, newEmailAddress);
+                    break;
+
+                case 4:
+                    System.out.print("Enter name of the contact to delete: ");
+                    String deleteName = scanner.nextLine();
+                    contactManager.deleteContact(deleteName);
+                    break;
+
+                case 5:
+                    System.out.println("Exiting program. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+            }
+        }
+    }
+}
