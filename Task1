@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        String con;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print("Enter the degree: ");
+            double degree = scanner.nextInt();
+
+            // Consume the newline character
+            scanner.nextLine();
+
+            System.out.print("Enter the degcase: ");
+            String degcase = scanner.nextLine();
+            convertDegree(degree,degcase);
+            System.out.println("if you want to continue , press Yes, if you don't , press NO");
+            con = scanner.nextLine();
+
+        } while (con.toLowerCase().equals("yes"));
+        scanner.close();
+
+    }
+    public static void convertDegree(double degree , String degcase){
+        if (degcase.toLowerCase().equals("celsius")) {
+            double feh = ((degree * (9 / 5.0)) + 32);
+            double kel = degree + 273.15;
+            System.out.println("the degree " + degree + " Celsius = " + feh + " Fahrenheit");
+            System.out.println("the degree " + degree + " Celsius = " + kel + " Kelvin");
+        } else if (degcase.toLowerCase().equals("fahrenheit")) {
+            double cel = (degree - 32) * (5 / 9.0);
+            double kel = (degree - 32) * (5 / 9.0) + 273.15;
+            System.out.println("the degree " + degree + " Fahrenheit = " + cel + " Celsius");
+            System.out.println("the degree " + degree + " Fahrenheit = " + kel + " Kelvin");
+        } else if (degcase.toLowerCase().equals("kelvin")) {
+            double cel = (degree - 273.15);
+            double feh = (degree - 273.15) * (9 / 5.0) + 32;
+            System.out.println("the degree " + degree + " Kelvin = " + cel + " Celsius");
+            System.out.println("the degree " + degree + " Kelvin = " + feh + " Fahrenheit");
+        }
+    }
+}
